@@ -1,0 +1,8 @@
+<div class="container">
+  <div>
+    <app-file-upload (invoiceFormData)="setInvoiceFormData($event)"></app-file-upload>
+  </div>
+  <div>
+    <app-invoice-form [invoiceFormData]="formData"></app-invoice-form>
+  </div>
+</div>

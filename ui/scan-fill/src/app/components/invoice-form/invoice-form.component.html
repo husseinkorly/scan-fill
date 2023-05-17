@@ -1,0 +1,10 @@
+<div class="container">
+    <form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
+        <div *ngFor="let control of invoiceFormData?.controls">
+            <mat-form-field appearance="outline">
+                <mat-label>{{ control.label }}</mat-label>
+                <input matInput formControlName="{{ control.name }}">
+            </mat-form-field>
+        </div>
+    </form>
+</div>
