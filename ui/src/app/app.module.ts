@@ -15,6 +15,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatListModule } from '@angular/material/list';
 import { InvoiceFormComponent } from './components/invoice-form/invoice-form.component';
+import { LineFormComponent } from './components/line-form/line-form.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SummaryFormComponent } from './components/summary-form/summary-form.component';
 
 const materialModules = [
   MatCardModule,
@@ -23,14 +27,18 @@ const materialModules = [
   MatInputModule,
   MatFormFieldModule,
   MatProgressBarModule,
-  MatListModule
+  MatListModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     FileUploadComponent,
-    InvoiceFormComponent
+    InvoiceFormComponent,
+    LineFormComponent,
+    SummaryFormComponent
   ],
   imports: [
     BrowserModule,

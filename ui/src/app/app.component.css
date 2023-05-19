@@ -1,12 +1,9 @@
 .container {
   width: 800px;
-  margin: 20px auto;
+  margin: 100px auto;
+  display:grid;
 }
 
-.container h3 {
-  font-size: xx-large;
-}
-
-.container h4 {
-  font-size: x-large;
+h1 {
+  margin: 16px;
 }

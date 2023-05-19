@@ -7,7 +7,7 @@ import { InvoiceFormData } from './components/invoice-form/invoice-form.componen
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'scan-fill';
+  title = 'Scan Fill';
   formData!: InvoiceFormData;
 
   setInvoiceFormData(event: InvoiceFormData) {

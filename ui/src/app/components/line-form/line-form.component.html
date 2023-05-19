@@ -1,0 +1,23 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h2>Line Items</h2></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="line-form" [formGroup]="submissionForm">
+      <div *ngFor="let line of lineItems;">
+        <mat-form-field class="mat-form-field-large">
+          <mat-label>Description</mat-label>
+          <input matInput id="Description" type="text" value="{{line.Description}}" title="Description" required>
+        </mat-form-field>
+        <mat-form-field class="mat-form-field-small">
+          <mat-label>Quantity</mat-label>
+          <input matInput id="Quantity" type="text" value="{{line.Quantity}}" title="Quantity" required>
+        </mat-form-field>
+        <mat-form-field class=".mat-form-field">
+          <mat-label>Unit Price</mat-label>
+          <input matInput id="UnitPrice" type="text" value="{{line.UnitPrice}}" title="UnitPrice" required>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

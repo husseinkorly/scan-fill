@@ -1,0 +1,21 @@
+<form class="summary-form" [formGroup]="submissionForm">
+    <mat-card class="card">
+    <mat-card-header>
+        <mat-card-title><h2>Summary</h2></mat-card-title>
+    </mat-card-header>
+    <mat-form-field style="margin-top: 20px;" class="example-full-width">
+        <mat-label>Subtotal</mat-label>
+        <input matInput id="Subtotal" type="text" formControlName="Subtotal" title="Subtotal" required>
+    </mat-form-field>
+    
+    <mat-form-field class="example-full-width">
+        <mat-label>Total Tax</mat-label>
+        <input matInput id="TotalTax" type="text" formControlName="TotalTax" title="TotalTax" required>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Invoice Total</mat-label>
+        <input matInput id="InvoiceTotal" type="text" formControlName="InvoiceTotal" title="InvoiceTotal" required>
+    </mat-form-field>
+    </mat-card>
+</form>

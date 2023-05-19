@@ -1,10 +1,25 @@
-<div class="container">
-    <form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
-        <div *ngFor="let control of invoiceFormData?.controls">
-            <mat-form-field appearance="outline">
-                <mat-label>{{ control.label }}</mat-label>
-                <input matInput formControlName="{{ control.name }}">
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title><h2>Invoice Details</h2></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="invoice-form" [formGroup]="submissionForm">
+            <mat-form-field class="mat-form-field-FullWidth">
+                <mat-label>Supplier Invoice Number</mat-label>
+                <input matInput id="InvoiceId" type="text" formControlName="InvoiceId" title="InvoiceId">
             </mat-form-field>
-        </div>
-    </form>
-</div>
+            
+            <div>
+                <mat-form-field class="mat-form-field-small">
+                    <mat-label>Purchase Order Number</mat-label>
+                    <input matInput id="PurchaseOrder" type="text" formControlName="PurchaseOrder" title="PurchaseOrder">
+                </mat-form-field>
+    
+                <mat-form-field class="mat-form-field-small">
+                    <mat-label>Invoice Date</mat-label>
+                    <input matInput id="InvoiceDate" type="date" formControlName="InvoiceDate" title="InvoiceDate">
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

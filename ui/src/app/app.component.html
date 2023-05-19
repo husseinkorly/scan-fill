@@ -1,8 +1,19 @@
+<mat-toolbar color="primary">
+  <h1><span class="heart">🤖</span> {{ title }}</h1>
+</mat-toolbar>
 <div class="container">
   <div>
-    <app-file-upload (invoiceFormData)="setInvoiceFormData($event)"></app-file-upload>
+    <app-file-upload
+      (invoiceFormData)="setInvoiceFormData($event)"
+    ></app-file-upload>
   </div>
   <div>
     <app-invoice-form [invoiceFormData]="formData"></app-invoice-form>
+  </div>
+  <div>
+    <app-line-form [invoiceFormData]="formData"></app-line-form>
+  </div>
+  <div>
+    <app-summary-form [invoiceFormData]="formData"></app-summary-form>
   </div>
 </div>

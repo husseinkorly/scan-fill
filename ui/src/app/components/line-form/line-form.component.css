@@ -1,0 +1,28 @@
+/* .summary-form {
+    display: flex;
+    flex-direction:row;
+    align-items:baseline;
+}
+
+.example-full-width {
+    width: 80%;
+}
+
+.card {
+    width: 100%;
+} */
+
+.mat-form-field-small {
+    padding-right: 8px;
+    width: 120px;
+}
+
+.mat-form-field {
+    padding-right: 8px;
+    width: 120px;
+}
+
+.mat-form-field-large {
+    padding-right: 8px;
+    width: 400px;
+}

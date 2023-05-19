@@ -21,21 +21,41 @@ export class InvoiceFormComponent implements OnChanges {
   @Input()
   invoiceFormData!: InvoiceFormData;
 
-  submissionForm: FormGroup = this.fb.group({});
+  submissionForm: FormGroup = this.fb.group({
+    InvoiceId: [''],
+    InvoiceDate: [''],
+    PurchaseOrder: [''],
+  });
 
   constructor(private fb: FormBuilder) { }
 
   ngOnChanges(changes: SimpleChanges): void{
     if (!changes['invoiceFormData'].firstChange) {
-      this.createForm(changes['invoiceFormData'].currentValue);
-      //this.invoiceForm.patchValue(changes.invoiceFormData.currentValue);
+      this.submissionForm.patchValue(this.getcontrolValues(changes['invoiceFormData'].currentValue['Header']));
     }
   }
 
-  createForm(controles: InvoiceFormData) {
-    for (const control of controles.controls) {
-      this.submissionForm.addControl(control.name, this.fb.control(control.value));
+  getcontrolValues(header: any) {
+    const values: any = {};
+    for (const key in header) {
+      if (Object.prototype.hasOwnProperty.call(header, key)) {
+        if(key == 'InvoiceDate') {
+          const d = new Date(header[key]);
+          let month = '' + (d.getMonth() + 1);
+          let day = '' + d.getDate();
+          const year = d.getFullYear();
+          if (month.length < 2) month = '0' + month;
+          if (day.length < 2) day = '0' + day;
+          
+          values[key] = [year, month, day].join('-');
+        }
+        else {
+          values[key] = header[key];
+        }
+      }
     }
+    
+    return values;
   }
 
   onSubmit() {
