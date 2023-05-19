@@ -20,6 +20,7 @@ export interface InvoiceFormData {
 export class InvoiceFormComponent implements OnChanges {
   @Input()
   invoiceFormData!: InvoiceFormData;
+  displayInvoiceForm = false;
 
   submissionForm: FormGroup = this.fb.group({
     InvoiceId: [''],
@@ -32,6 +33,7 @@ export class InvoiceFormComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void{
     if (!changes['invoiceFormData'].firstChange) {
       this.submissionForm.patchValue(this.getcontrolValues(changes['invoiceFormData'].currentValue['Header']));
+      this.displayInvoiceForm = true;
     }
   }
 

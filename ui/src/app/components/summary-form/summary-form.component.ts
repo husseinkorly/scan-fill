@@ -10,6 +10,7 @@ import { FormBuilder } from '@angular/forms';
 export class SummaryFormComponent implements OnChanges {
   @Input()
   invoiceFormData!: InvoiceFormData;
+  displaySummaryForm = false;
 
   submissionForm: any = this.fb.group({
     Subtotal: [''],
@@ -22,6 +23,7 @@ export class SummaryFormComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes['invoiceFormData'].firstChange) {
       this.submissionForm.patchValue(changes['invoiceFormData'].currentValue['Summary']);
+      this.displaySummaryForm = true;
     }
   }
 }

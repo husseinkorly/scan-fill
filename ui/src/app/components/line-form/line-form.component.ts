@@ -11,6 +11,7 @@ export class LineFormComponent implements OnChanges{
   @Input()
   invoiceFormData!: InvoiceFormData;
   lineItems: any = [];
+  displayLineForm = false;
 
   // TODO: adding dynamic form controls
   submissionForm: any = this.fb.group({
@@ -24,7 +25,7 @@ export class LineFormComponent implements OnChanges{
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes['invoiceFormData'].firstChange) {
       this.lineItems = changes['invoiceFormData'].currentValue['LineItems'];
-      console.log(this.lineItems);
+      this.displayLineForm = true;
     }
   }
 }
