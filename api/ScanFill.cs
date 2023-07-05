@@ -1,4 +1,5 @@
 using Azure;
+using Azure.Identity;
 using Azure.AI.FormRecognizer.DocumentAnalysis;
 
 using System;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using api.DTOs;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Azure.Core;
 
 namespace ScanFill.Function
 {
@@ -30,8 +32,12 @@ namespace ScanFill.Function
             }
 
             string endpoint = "https://scanfill.cognitiveservices.azure.com/";
-            string key = "";
-            AzureKeyCredential credential = new AzureKeyCredential(key);
+            // using managed identity
+            string userAssignedClientId = "106104ba-4c3a-407d-a785-d663cea015ac";
+            var credential = new ChainedTokenCredential(
+                new ManagedIdentityCredential(userAssignedClientId),
+                new AzureCliCredential()
+            );
 
             // analyze the form data
             var client = new DocumentAnalysisClient(new Uri(endpoint), credential);
