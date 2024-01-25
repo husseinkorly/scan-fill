@@ -14,8 +14,9 @@ This project is designed to simplify the process of invoice data extraction. Use
 
 ### Running Azure Function
 1. navigate to the `api` folder
-2. run `dotnet build` to build the project
-3. run `func start --csharp` to start the function
+2. run `az login` to login to Azure and select the subscription you want to use (for Managed Identity)
+3. run `dotnet build` to build the project
+4. run `func start --csharp` to start the function
 
 ## Demo
 ![Alt text](./imgs/image.png)
