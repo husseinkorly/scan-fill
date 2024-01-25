@@ -23,7 +23,7 @@ export class LineFormComponent implements OnChanges{
   constructor(private fb: FormBuilder) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['invoiceFormData'].firstChange) {
+    if (changes['invoiceFormData'].firstChange) {
       this.lineItems = changes['invoiceFormData'].currentValue['LineItems'];
       this.displayLineForm = true;
     }

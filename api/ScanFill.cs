@@ -5,6 +5,7 @@ using Azure.AI.FormRecognizer.DocumentAnalysis;
 using System;
 using System.Threading.Tasks;
 
+using Aspose.Pdf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -13,7 +14,6 @@ using Microsoft.Extensions.Logging;
 using api.DTOs;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Azure.Core;
 
 namespace ScanFill.Function
 {
@@ -39,21 +39,46 @@ namespace ScanFill.Function
                 new AzureCliCredential()
             );
 
-            // analyze the form data
             var client = new DocumentAnalysisClient(new Uri(endpoint), credential);
-            AnalyzeDocumentOperation operation = await client.AnalyzeDocumentAsync(WaitUntil.Completed, "prebuilt-invoice", files[0].OpenReadStream());
-            // expecting to send a single invoice document for now
-            AnalyzedDocument document = operation.Value.Documents[0];
+            Document pdfDocument = new Document(files[0].OpenReadStream());
+            // creating list of Invoice objects to store the results
+            List<Invoice> invoices = new List<Invoice>();
 
-            // return the results
-            Invoice invoice = new Invoice
+            for (int pageCount = 1; pageCount <= pdfDocument.Pages.Count; pageCount++)
+            {
+                AnalyzeDocumentOperation operation = await client.AnalyzeDocumentAsync(WaitUntil.Completed,
+                    "prebuilt-invoice", 
+                    files[0].OpenReadStream(),
+                    options: new AnalyzeDocumentOptions() { Pages = { $"{pageCount}-{pageCount}" } });
+                AnalyzedDocument document = operation.Value.Documents[0];
+                // creating invoice payload from the scanned document page
+                Invoice invoiceData = CreateInvoicePayload(document);
+                invoices.Add(invoiceData);
+                // reset the stream position for the next page
+                files[0].OpenReadStream().Position = 0;
+            }
+
+            var json = JsonConvert.SerializeObject(invoices);
+            
+            //return json payload with content type
+            return new ContentResult
+            {
+                Content = json,
+                ContentType = "application/json",
+                StatusCode = 200
+            };
+        }
+
+        private static Invoice CreateInvoicePayload(AnalyzedDocument document)
+        {
+            Invoice invoice = new()
             {
                 Header = new Header(),
                 LineItems = new List<LineItem>(),
                 Summary = new Summary()
             };
-            Address shipFrom = new Address();
-            Address shipTo = new Address();
+            Address shipFrom = new();
+            Address shipTo = new();
            
             if (document.Fields.TryGetValue("InvoiceId", out DocumentField invoiceId))
             {
@@ -95,11 +120,9 @@ namespace ScanFill.Function
                 shipTo.City = docShipFrom?.Value?.AsAddress().City;
                 shipTo.PostalCode = docShipFrom?.Value?.AsAddress().PostalCode;
             }
-            
-
 
             document.Fields.TryGetValue("Items", out DocumentField items);
-            if (items.FieldType == DocumentFieldType.List)
+            if (items?.FieldType == DocumentFieldType.List)
             {
                 foreach (var item in items.Value.AsList())
                 {
@@ -122,15 +145,8 @@ namespace ScanFill.Function
                     invoice.LineItems.Add(lineItem);
                 }
             }
-            var json = JsonConvert.SerializeObject(invoice);
-            
-            //return json payload with content type
-            return new ContentResult
-            {
-                Content = json,
-                ContentType = "application/json",
-                StatusCode = 200
-            };
+
+            return invoice;
         }
     }
 }

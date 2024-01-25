@@ -1,0 +1,15 @@
+<mat-tab-group>
+  <div *ngFor="let invoice of invoices; index as i">
+    <mat-tab label="Invoice# {{i+1}}">
+      <div>
+        <app-invoice-form [invoiceFormData]="invoice"></app-invoice-form>
+      </div>
+      <div>
+        <app-line-form [invoiceFormData]="invoice"></app-line-form>
+      </div>
+      <div>
+        <app-summary-form [invoiceFormData]="invoice"></app-summary-form>
+      </div>
+    </mat-tab>
+  </div>
+</mat-tab-group>

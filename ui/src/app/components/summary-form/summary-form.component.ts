@@ -21,7 +21,7 @@ export class SummaryFormComponent implements OnChanges {
   constructor(private fb: FormBuilder) { }
   
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['invoiceFormData'].firstChange) {
+    if (changes['invoiceFormData'].firstChange) {
       this.submissionForm.patchValue(changes['invoiceFormData'].currentValue['Summary']);
       this.displaySummaryForm = true;
     }

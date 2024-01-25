@@ -31,7 +31,7 @@ export class InvoiceFormComponent implements OnChanges {
   constructor(private fb: FormBuilder) { }
 
   ngOnChanges(changes: SimpleChanges): void{
-    if (!changes['invoiceFormData'].firstChange) {
+    if (changes['invoiceFormData'].firstChange) {
       this.submissionForm.patchValue(this.getcontrolValues(changes['invoiceFormData'].currentValue['Header']));
       this.displayInvoiceForm = true;
     }
@@ -48,7 +48,7 @@ export class InvoiceFormComponent implements OnChanges {
           const year = d.getFullYear();
           if (month.length < 2) month = '0' + month;
           if (day.length < 2) day = '0' + day;
-          
+
           values[key] = [year, month, day].join('-');
         }
         else {
