@@ -19,4 +19,5 @@ This project is designed to simplify the process of invoice data extraction. Use
 4. run `func start --csharp` to start the function
 
 ## Demo
+![Alt text](./sample%20invoices/CPT2305182233-1519x1233.gif)
 ![Alt text](./imgs/image.png)
